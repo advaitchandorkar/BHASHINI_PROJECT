@@ -1,0 +1,21 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execute Python File</title>
+</head>
+<body>
+    <button id="executeBtn">Execute Python File</button>
+
+    <script>
+        document.getElementById('executeBtn').addEventListener('click', function() {
+            fetch('/execute-python-file', {
+                method: 'POST'
+            });
+        });
+    </script>
+</body>
+</html>

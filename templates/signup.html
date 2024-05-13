@@ -1,0 +1,58 @@
+<!-- signup.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagle Eye - Sign Up</title>
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Eagle Eye</div>
+        <div class="sign-buttons">
+            <a href="/" class="login">Login</a>
+            <a href="{{ url_for('signup') }}" class="signup">Sign Up</a>
+            <a href="{{ url_for('aboutus') }}" class="signup">About Us</a>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Sign Up</h2>
+            <form method="post" action="{{ url_for('signup') }}">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <form action="/navigate" method="POST">
+                    <button type="submit">Sign Up</button>
+                </form>
+            
+            </form>
+            <p>Already have an account? <a href="{{ url_for('index') }}" class="login">Login</a></p>
+        </div>
+        <div class="login-image">
+            <img src="static/img/l2.jpeg" alt="Login Image">
+            <p><a href="#">Login with Google</a></p>
+        </div>
+    </div>
+</body>
+</html>

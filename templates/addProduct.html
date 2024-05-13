@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="static\css\addproduct.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="static\css\inventorytrack.css">
+<title>Add Product</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('Inventorytrack') }}">Inventorytrack</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-4">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('orders') }}">Orders</a>
+                </li>
+                <li class="nav-item" style="margin-left: 10px;">
+                    <a class="nav-link" href="{{ url_for('product_inventory') }}">Product-Inventory</a>
+                </li>
+                <li class="nav-item" style="margin-left: 10px;">
+                    <a class="nav-link" href="{{ url_for('manufacturers') }}">Restock Inventory</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="adb form-control mr-sm-2">
+                    <a href="{{ url_for('addProduct') }}"><span class="add-p">Add Products</span></a>
+                </div>
+                <a class="notification" href="/notification">
+                    <div class="bell_icon btn btn-outline-success my-2 my-sm-0">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">2</span>
+                    </div>
+                </a> 
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="add_product">
+    <div class="head">
+        <h1>Add Product</h1>
+    </div>
+
+    <form action="/submit_product" method="post" enctype="multipart/form-data">
+        <div class="space">
+            <label for="productName">Company Name</label>
+            <input type="text" id="companyName" name="companyName" required placeholder="Enter company name">
+        </div>
+        <div class="space">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" name="productName" required placeholder="Enter product name">
+        </div>
+        <div class="space">
+            <label for="price">Price</label>
+            <input type="tel" id="price" name="price" required placeholder="Enter price of product">
+        </div>
+        <div class="space">
+            <label for="Quantity">Quantity</label>
+            <input type="tel" id="Quantity" name="Quantity" required placeholder="Enter Quantity">
+        </div>
+        <div class="space">
+            <label for="expiryDate">Expiry date</label>
+            <input type="date" id="expiryDate" name="expiryDate" required placeholder="Enter expiry date">
+        </div>        
+        <div class="button_add">
+
+
+            <button type="submit" class="btn_add" value="Add Product">Add Product</button>
+        </div>
+    </form>
+</div>
+
+<h1>MASTER TABLE TO BE ADDED HERE</h1> 
+
+</body>
+</html>

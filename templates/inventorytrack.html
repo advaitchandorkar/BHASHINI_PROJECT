@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventorytrack</title>
+    <!-- Bootstrap CSS (link to CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static\css\inventorytrack.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('Inventorytrack') }}">Inventorytrack</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-4">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('orders') }}">Orders</a>
+                </li>
+                <li class="nav-item" style="margin-left: 10px;"> <!-- Added margin-left -->
+                    <a class="nav-link" href="{{ url_for('product_inventory') }}">Product-Inventory</a>
+                </li>
+                <li class="nav-item" style="margin-left: 10px;"> <!-- Added margin-left -->
+                    <a class="nav-link" href="{{ url_for('manufacturers') }}">Restock Inventory</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="adb form-control mr-sm-2" ><a href="{{ url_for('addProduct') }}" > <span class="add-p">Add Products</span></a></div>
+                <a class="notification" href="/notification">
+                  <div class="bell_icon btn btn-outline-success my-2 my-sm-0">
+                      <i class="fas fa-bell"></i>
+                      <span class="badge">2</span>
+                  </div>
+              </a> 
+            </form>
+        </div>
+    </div>
+</nav>
+
+  <div class="fixed-buttons">
+    <!-- First Image Button -->
+    <!-- <button style="background-image: url('static/img/plus.png')"></button> -->
+      <div class="start visible">
+        <button style="background-image: url('static/img/plus.png')" class="start"></button>
+      </div>
+      <div class="button-container">
+        <button id="startBtn" class="startBtn">Start Recording</button>
+        <button id="stopBtn" class="stopBtn">Stop Recording</button>
+      </div>
+      <div id="status"></div>
+    
+    
+
+    <!-- Second Image Button -->
+    <div class="start-second visible">
+      <button style="background-image: url('static/img/minus.png')" class="start-second"></button>
+    </div>
+    <div class="button-container">
+      <button id="startBtn_second" class="startBtn">Start Recording</button>
+      <button id="stopBtn_second" class="stopBtn">Stop Recording</button>
+    </div>
+    <div id="status"></div>
+ 
+
+  </div>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- JavaScript code -->
+  
+  <script>
+    $(document).ready(function(){
+       $('.start').click(function(){
+        console.log("kcbbjskbk m k , ck cwhats");
+           $('.start').addClass('fade-out');
+           setTimeout(function() {
+               $('.start').css('display', 'none').removeClass('fade-out');
+               $('#startBtn, #stopBtn').addClass('fade-in').css('display', 'block');
+               setTimeout(function() {
+                   $('#startBtn, #stopBtn').removeClass('fade-in');
+               }, 500); // Same duration as fade-in animation
+           }, 500); // Same duration as fade-out animation
+       });
+   
+       $('#stopBtn').click(function(){
+           $('#startBtn, #stopBtn').addClass('fade-out');
+           setTimeout(function() {
+               $('#startBtn, #stopBtn').css('display', 'none').removeClass('fade-out');
+               $('.start').addClass('fade-in').css('display', 'block');
+               setTimeout(function() {
+                   $('.start').removeClass('fade-in');
+               }, 500); // Same duration as fade-in animation
+           }, 500); // Same duration as fade-out animation
+       });
+   });
+   
+
+   
+  //  SECOND BUTTON 
+  $(document).ready(function(){
+       $('.start-second').click(function(){
+           $('.start-second').addClass('fade-out');
+           setTimeout(function() {
+               $('.start-second').css('display', 'none').removeClass('fade-out');
+               $('#startBtn_second, #stopBtn_second').addClass('fade-in').css('display', 'block');
+               setTimeout(function() {
+                   $('#startBtn_second, #stopBtn_second').removeClass('fade-in');
+               }, 500); // Same duration as fade-in animation
+           }, 500); // Same duration as fade-out animation
+       });
+   
+       $('#stopBtn_second').click(function(){
+           $('#startBtn_second, #stopBtn_second').addClass('fade-out');
+           setTimeout(function() {
+               $('#startBtn_second, #stopBtn_second').css('display', 'none').removeClass('fade-out');
+               $('.start-second').addClass('fade-in').css('display', 'block');
+               setTimeout(function() {
+                   $('.start-second').removeClass('fade-in');
+               }, 500); // Same duration as fade-in animation
+           }, 500); // Same duration as fade-out animation
+       });
+   });
+   
+   
+   
+   </script>
+   
+   <script>
+    document.getElementById('stopBtn').addEventListener('click', function() {
+    console.log("jjzbbz nv kxsm j  k m k ");
+        fetch('/execute-python-file', {
+            method: 'POST'
+        });
+    });
+</script>
+
+   <script>
+    document.getElementById('stopBtn_second').addEventListener('click', function() {
+      console.log("delete python file executed");
+        fetch('/delete_python', {
+            method: 'POST'
+        });
+    });
+</script>
+   
+       <script>
+           $(document).ready(function(){
+               $('.startBtn').click(function(){
+                   $.post('/start_recording', function(data){
+                       $('#status').text(data.status);
+                   });
+               });
+   
+               $('.stopBtn').click(function(){
+                   $.post('/stop_recording', function(data){
+                       $('#status').text(data.status);
+                   });
+               });
+           });
+       </script>
+
+
+
+
+<div class="card-compo">
+
+<div class="card" style="width: 18rem;">
+    <img src="static\img\voice1.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Voice enabled system</h5>
+      <p class="card-text">A system that responds to spoken commands and instructions, enhancing user interaction and accessibility.</p>
+      
+    </div>
+  </div>
+<div class="card" style="width: 18rem;">
+    <img src="static\img\voice 2.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Voice enabled inventory</h5>
+      <p class="card-text">An inventory management system that utilizes voice commands for efficient control and tracking of stock.</p>
+      
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <img src="static\img\imgrecog.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Image Recognition</h5>
+      <p class="card-text">Technology that enables computers to identify and analyze visual information within images.</p>
+      
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <img src="static\img\intelliauto.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Intelligent automation</h5>
+      <p class="card-text">Automated processes driven by AI algorithms to optimize efficiency and decision-making</p>
+      
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <img src="static\img\eye.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Advanced Eagle Eye</h5>
+      <p class="card-text">A sophisticated surveillance system incorporating cutting-edge technology for enhanced monitoring and analysis.</p>
+      
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <img src="static\img\intelliauto2.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Database automation</h5>
+      <p class="card-text">Automating database tasks and operations to streamline management and improve reliability</p>
+      
+    </div>
+  </div>
+</div>
+<div class="btn-see">
+    <button>See more</button>
+</div>
+
+<button class="scan-image" onclick="startStreamlit()">Click here to scan your image</button>
+<script>
+    function startStreamlit() {
+        // Send a request to start the Streamlit app
+        fetch('/start_streamlit');
+    }
+</script>
+
+<div class="input-group input-wrapper mb-3">
+    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+    <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button> -->
+    <!-- <ul class="dropdown-menu dropdown-menu-end">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul> -->
+  </div>
+
+  <!-- Add a hidden popup/modal for quantity and amount confirmation -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close">&times;</span>
+      <h2>Edit Quantity and Amount</h2>
+      <form id="editForm">
+        <!-- Input fields for editing -->
+        <input type="text" id="productName" placeholder="Product Name">
+        <input type="number" id="quantity" placeholder="Quantity">
+        <input type="number" id="price" placeholder="Price">
+        <button type="submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  <script>
+
+// Function to show the popup
+function showPopup() {
+  document.getElementById("popup").style.display = "block";
+}
+
+// Function to hide the popup
+function hidePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+// Function to stop recording and show the popup after a delay
+function stopRecordingAndShowPopup() {
+  // Stop recording (you can keep your existing logic here)
+  // ...
+
+  // Show the popup after a delay of 3 seconds
+  setTimeout(showPopup, 3000);
+}
+
+// Event listener for the stop recording button
+document.getElementById("stopBtn").addEventListener("click", stopRecordingAndShowPopup);
+
+// Event listener for the close button in the popup
+document.querySelector(".close").addEventListener("click", hidePopup);
+
+// Event listener for the form submission
+document.getElementById("editForm").addEventListener("submit", function(event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  // Get the edited values from the form
+  var productName = document.getElementById("productName").value;
+  var quantity = document.getElementById("quantity").value;
+  var price = document.getElementById("price").value;
+
+  // Send the edited values to the server using fetch or AJAX
+  fetch('/save_edited_data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      productName: productName,
+      quantity: quantity,
+      price: price
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Handle the response (e.g., close the popup)
+    hidePopup();
+  })
+  .catch(error => console.error('Error:', error));
+});
+
+  </script>
+
+
+<div class="table_data">
+
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in inventory %}
+      <tr>
+        <td>{{ item[0] }}</td>
+        <td>{{ item[1] }}</td>
+        <td>{{ item[2] }}</td>
+        <td>{{ item[3] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Bootstrap JS (link to CDN) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

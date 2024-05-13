@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static\css\inventorytrack.css">
+    <title>Orders</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('Inventorytrack') }}">Inventorytrack</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('orders') }}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('product_inventory') }}">Product-Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('manufacturers') }}">Restock Inventory</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="adb form-control mr-sm-2" ><a href="{{ url_for('addProduct') }}" > <span class="add-p">Add Products</span></a></div>
+                    <a class="notification" href="/notification">
+                        <div class="bell_icon btn btn-outline-success my-2 my-sm-0">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">2</span>
+                        </div>
+                    </a> 
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    
+<div class="input-group input-wrapper mb-3">
+    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+</div>
+    <div class="table-order input-wrapper">
+        <div class="comment">
+            NO ORDERS PLACED YET
+        </div>
+        <!-- <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Product 1</td>
+                    <td>$10.00</td>
+                    <td>100</td>
+                    <td>2024-04-01</td>
+                </tr>
+                <tr>
+                    <td>Product 2</td>
+                    <td>$15.50</td>
+                    <td>150</td>
+                    <td>2024-04-02</td>
+                </tr>
+                <tr>
+                    <td>Product 3</td>
+                    <td>$20.00</td>
+                    <td>200</td>
+                    <td>2024-04-03</td>
+                </tr>
+                <tr>
+                    <td>Product 4</td>
+                    <td>$25.00</td>
+                    <td>250</td>
+                    <td>2024-04-04</td>
+                </tr>
+                <tr>
+                    <td>Product 5</td>
+                    <td>$30.00</td>
+                    <td>300</td>
+                    <td>2024-04-05</td>
+                </tr>
+                <tr>
+                    <td>Product 6</td>
+                    <td>$35.00</td>
+                    <td>350</td>
+                    <td>2024-04-06</td>
+                </tr>
+                <tr>
+                    <td>Product 7</td>
+                    <td>$40.00</td>
+                    <td>400</td>
+                    <td>2024-04-07</td>
+                </tr>
+                <tr>
+                    <td>Product 8</td>
+                    <td>$45.00</td>
+                    <td>450</td>
+                    <td>2024-04-08</td>
+                </tr>
+                <tr>
+                    <td>Product 9</td>
+                    <td>$50.00</td>
+                    <td>500</td>
+                    <td>2024-04-09</td>
+                </tr>
+                <tr>
+                    <td>Product 10</td>
+                    <td>$55.00</td>
+                    <td>550</td>
+                    <td>2024-04-10</td>
+                </tr>
+            </tbody>
+        </table> -->
+    </div>
+
+
+
+</body>
+</html>
